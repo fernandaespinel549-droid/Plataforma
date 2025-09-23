@@ -1,0 +1,13 @@
+{% extends 'bases.html' %}
+{% block content %}
+<h1>Datos</h1>
+<ul>
+    {% for datos in datos %}
+        <li>
+            <h2>{{ datos.title }}</h2>
+            <p>{{ datos.descripcion }}</p>
+    {% empty %}
+        <p>No se han registrado datos.</p>
+    {% endfor %}
+</ul>
+{% endblock %}

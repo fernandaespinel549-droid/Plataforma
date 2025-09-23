@@ -1,0 +1,12 @@
+{% extends 'bases.html' %}
+{% block content %} 
+
+<h1>Crear datos</h1>
+{{ error }}
+<form action="{% url 'crear_datos' %}" method="post">
+    {% csrf_token %}
+    {{ forms.as_p }}
+    <button type="submit">Agregar</button>
+</form>
+
+{% endblock %}
