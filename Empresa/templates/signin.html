@@ -1,11 +1,77 @@
 {% extends "bases.html" %}
 
 {% block content %}
-  <h2>Iniciar Sesion 👋 😃 🖐️</h2>
-  {{ error }}
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Iniciar Sesion 👋 😃 🖐️</button>
-  </form>
+<div class="content login-container">
+    <h2>Iniciar Sesión 👋</h2>
+
+    {% if error %}
+        <div class="error-message">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-submit">Iniciar Sesión</button>
+    </form>
+</div>
+
+<style>
+    .login-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #f4f7ff;
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .login-container h2 {
+        color: #004080;
+        margin-bottom: 25px;
+        font-size: 2em;
+    }
+
+    /* Mensaje de error */
+    .error-message {
+        background-color: #ffcccc;
+        color: #a80000;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #a80000;
+    }
+
+    .login-form input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: 0.3s;
+    }
+
+    .login-form input:focus {
+        border-color: #004080;
+        box-shadow: 0 0 5px rgba(0, 64, 128, 0.3);
+        outline: none;
+    }
+
+    .btn-submit {
+        background-color: #004080;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 1em;
+        transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+        background-color: #0066cc;
+    }
+</style>
 {% endblock %}

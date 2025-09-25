@@ -1,13 +1,68 @@
 {% extends 'bases.html' %}
 {% block content %}
-<h1>Datos</h1>
-<ul>
-    {% for datos in datos %}
-        <li>
-            <h2>{{ datos.title }}</h2>
-            <p>{{ datos.descripcion }}</p>
-    {% empty %}
+<div class="content">
+    <h1>Datos</h1>
+
+    {% if datos %}
+        <div class="cards-container">
+            {% for dato in datos %}
+            <div class="card">
+                <h2><strong>Cargo:</strong> {{ dato.cargo_empleado|default:"Sin cargo" }}</h2>
+                <p><strong>Nombre:</strong> {{ dato.nombre }} {{ dato.apellido }}</p>
+                <p><strong>Cédula:</strong> {{ dato.cedula }}</p>
+                <p><strong>Fecha de ingreso:</strong> {{ dato.fecha_ingreso|default:"-" }}</p>
+                <p><strong>Salario:</strong> ${{ dato.salario|default:"0.00" }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
         <p>No se han registrado datos.</p>
-    {% endfor %}
-</ul>
+    {% endif %}
+</div>
+
+<style>
+    h1 {
+        color: #004080;
+        margin-bottom: 20px;
+    }
+
+    /* Contenedor de tarjetas */
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    /* Tarjeta individual */
+    .card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 20px;
+        flex: 1 1 calc(45% - 20px); /* 2 tarjetas por fila, ajustable */
+        min-width: 250px;
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .card h2 {
+        color: #030c15;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        margin: 5px 0;
+        line-height: 1.4;
+    }
+
+    @media (max-width: 600px) {
+        .cards-container {
+            flex-direction: column;
+        }
+    }
+</style>
 {% endblock %}

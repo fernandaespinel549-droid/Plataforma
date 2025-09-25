@@ -1,12 +1,73 @@
 {% extends 'bases.html' %}
 {% block content %} 
 
-<h1>Crear datos</h1>
-{{ error }}
-<form action="{% url 'crear_datos' %}" method="post">
-    {% csrf_token %}
-    {{ forms.as_p }}
-    <button type="submit">Agregar</button>
-</form>
+<div class="content">
+    <h1>Crear datos</h1>
+
+    {% if error %}
+        <div class="error-message">{{ error }}</div>
+    {% endif %}
+
+    <form action="{% url 'crear_datos' %}" method="post" class="formulario">
+        {% csrf_token %}
+        {{ forms.as_p }}
+        <button type="submit" class="btn-submit">Agregar</button>
+    </form>
+</div>
+
+<style>
+    /* Contenedor ya está decorado por .content en bases.html */
+
+    /* Mensaje de error */
+    .error-message {
+        background-color: #ffcccc;
+        color: #a80000;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #a80000;
+    }
+
+    /* Formulario */
+    .formulario input, 
+    .formulario select, 
+    .formulario textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 6px 0 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: 0.3s;
+    }
+
+    .formulario input:focus,
+    .formulario select:focus,
+    .formulario textarea:focus {
+        border-color: #004080;
+        box-shadow: 0 0 5px rgba(0, 64, 128, 0.3);
+        outline: none;
+    }
+
+    /* Botón */
+    .btn-submit {
+        background-color: #004080;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+        background-color: #0066cc;
+    }
+
+    h1 {
+        color: #004080;
+        margin-bottom: 20px;
+    }
+</style>
 
 {% endblock %}

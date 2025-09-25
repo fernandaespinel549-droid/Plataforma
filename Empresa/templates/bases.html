@@ -1,30 +1,113 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Plataforma empresarial </title>
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma Empresarial</title>
+    <style>
+        /* Estilo general */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #e0e7ff, #f4f4f9);
+            color: #333;
+        }
+
+        /* Barra de navegación */
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(90deg, #004080, #0066cc);
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        ul li {
+            display: inline;
+        }
+
+        ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 22px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin: 5px;
+        }
+
+        ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Contenedor de contenido */
+        .content {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .content:hover {
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Encabezados */
+        h1, h2, h3 {
+            color: #004080;
+            margin-bottom: 20px;
+        }
+
+        /* Párrafos */
+        p {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            ul {
+                flex-direction: column;
+                border-radius: 0;
+            }
+
+            ul li a {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
     <ul> 
         <li><a href="{% url 'home' %}">Inicio</a></li>
-            <li><a href="{% url 'singup' %}">Registro</a></li>
-            <li><a href="{% url 'Datos' %}">Datos</a></li>
-            <li><a href="{% url 'crear_datos' %}">Crear datos</a></li>
+        <li><a href="{% url 'singup' %}">Registro</a></li>
+        <li><a href="{% url 'Datos' %}">Datos</a></li>
+        <li><a href="{% url 'crear_datos' %}">Crear datos</a></li>
 
         {% if user.is_authenticated %}
-            <li><a href="{% url 'signout' %}">Cerrar Sesion</a></li>
+            <li><a href="{% url 'signout' %}">Cerrar Sesión</a></li>
         {% else %}
-            <li><a href="{% url 'signin' %}">Iniciar Sesion</a></li>
-    {% endif %}
-
-
-
+            <li><a href="{% url 'signin' %}">Iniciar Sesión</a></li>
+        {% endif %}
     </ul>
-    {% block content %}
 
-    {% endblock %}
+    <!-- Contenido principal -->
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
 
-
-    </body>
-    </html>

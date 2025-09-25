@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import redirect, render
 from django.http import HttpResponse 
 from django.contrib.auth.models import User 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from Empresa.forms import TaskForm
@@ -11,26 +12,28 @@ from Empresa.models import Datos
 def home(request):
     return render(request, "home.html")
 
+@login_required
 def datos_list(request):
     data = Datos.objects.all()
-    return render(request, 'Datos.html', {'data': data})
+    return render(request, 'Datos.html', {'datos': data})
 
+@login_required
 def crear_datos (request):
     if request.method == 'GET':
-        return render(request, 
+        return render(request,
                    "crear_datos.html",
-                   {"forms":TaskForm})
-    else: 
-        try:
-            forms = TaskForm(request.POST)
+                   {"forms":TaskForm()})
+    else:
+        forms = TaskForm(request.POST)
+        if forms.is_valid():
             new_task = forms.save(commit=False)
             new_task.user = request.user
             new_task.save()
             return redirect('Datos')
-        except ValueError:
+        else:
            return render(request,
                       'crear_datos.html',
-                      {'forms': TaskForm,
+                      {'forms': forms,
                        'error': "por favor ingresa datos validos"})
 
 def signout(request):

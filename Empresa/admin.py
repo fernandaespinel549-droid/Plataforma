@@ -3,4 +3,4 @@ from .models import Datos
 
 @admin.register(Datos)
 class DatosAdmin(admin.ModelAdmin):
-    list_display = ('title', 'descripcion', 'importante')
+    list_display = ('nombre', 'apellido','cargo_empleado','cedula', 'fecha_ingreso', 'salario', 'creacion', 'importante', 'user')
