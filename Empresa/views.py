@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from Empresa.forms import TaskForm
 from Empresa.models import Datos
+from P_E import settings
 
 def home(request):
     return render(request, "home.html")
@@ -83,3 +84,19 @@ def singup(request):
                               'singup.html',
                               {"form": UserCreationForm(),
                                "error":"Error, Las contraseñas no coinciden"})
+        
+import openai
+openai.api_key = settings.OPENAI_API_KEY
+
+def ai_assistant(request):
+    respuesta = ""
+    if request.method == "POST":
+        pregunta = request.POST.get("pregunta")
+        if pregunta:
+            completion = openai.ChatCompletion.create(
+                model="gpt-4",
+                messages=[{"role": "user", "content": pregunta}],
+                max_tokens=200
+            )
+            respuesta = completion.choices[0].message.content
+    return render(request, "ai_chat.html", {"respuesta": respuesta})

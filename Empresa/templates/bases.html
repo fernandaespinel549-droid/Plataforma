@@ -95,6 +95,8 @@
         <li><a href="{% url 'singup' %}">Registro</a></li>
         <li><a href="{% url 'Datos' %}">Datos</a></li>
         <li><a href="{% url 'crear_datos' %}">Crear datos</a></li>
+        <li><a href="{% url 'ai_chat' %}">Ia</a></li>
+
 
         {% if user.is_authenticated %}
             <li><a href="{% url 'signout' %}">Cerrar Sesión</a></li>
