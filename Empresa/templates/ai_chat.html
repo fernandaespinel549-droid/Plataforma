@@ -1,100 +1,26 @@
 {% extends 'bases.html' %}
 
 {% block content %}
-<div id="ai-chat-widget">
-    <div id="chat-header">💬 Asistente IA</div>
-    <div id="chat-body">
-        {% if respuesta %}
-            <div class="chat-message ai-message">{{ respuesta }}</div>
-        {% endif %}
-    </div>
-    <form id="chat-form" method="post">
-        {% csrf_token %}
-        <input type="text" name="pregunta" placeholder="Escribe tu mensaje..." autocomplete="off" required>
-        <button type="submit">Enviar</button>
-    </form>
+<h2>Asistente IA 🤖</h2>
+<form method="post">
+  {% csrf_token %}
+  <label for="pregunta">Selecciona tu pregunta:</label><br>
+  <select name="pregunta" required>
+    <option value="">-- Elige una pregunta --</option>
+    <option value="¿Cómo creo un nuevo usuario?">¿Cómo creo un nuevo usuario?</option>
+     <option value="¿Cómo agrego un nuevo empleado?">¿Cómo agrego un nuevo empleado?</option>
+     <option value="¿En donde veo el nuevo empleado que agregue?">¿En donde veo el nuevo empleado que agregue?</option>
+  </select><br><br>
+  <button type="submit">Ver respuesta</button>
+</form>
+
+{% if respuesta %}
+<h3>Respuesta:</h3>
+<div style="padding:10px; background:#f4f4f4; border-radius:5px;">
+  {{ respuesta }}
 </div>
-
-<style>
-    /* Widget flotante */
-    #ai-chat-widget {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 300px;
-        background: #f4f7ff;
-        border-radius: 12px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        overflow: hidden;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        z-index: 9999;
-    }
-
-    #chat-header {
-        background: #004080;
-        color: white;
-        padding: 12px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    #chat-body {
-        max-height: 250px;
-        overflow-y: auto;
-        padding: 10px;
-    }
-
-    .chat-message {
-        margin: 5px 0;
-        padding: 8px 12px;
-        border-radius: 10px;
-        clear: both;
-    }
-
-    .ai-message {
-        background-color: #e0e7ff;
-        float: left;
-    }
-
-    #chat-form {
-        display: flex;
-        border-top: 1px solid #ccc;
-    }
-
-    #chat-form input[type="text"] {
-        flex: 1;
-        padding: 10px;
-        border: none;
-        border-radius: 0;
-    }
-
-    #chat-form button {
-        background-color: #004080;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    #chat-form button:hover {
-        background-color: #0066cc;
-    }
-</style>
-
-<script>
-    // Scroll automático hacia el último mensaje
-    const chatBody = document.getElementById('chat-body');
-    chatBody.scrollTop = chatBody.scrollHeight;
-
-    // Toggle del widget al hacer click en el header
-    const chatWidget = document.getElementById('ai-chat-widget');
-    const chatHeader = document.getElementById('chat-header');
-    let open = true;
-    chatHeader.onclick = function() {
-        open = !open;
-        chatBody.style.display = open ? 'block' : 'none';
-        document.getElementById('chat-form').style.display = open ? 'flex' : 'none';
-    }
-</script>
+{% endif %}
 {% endblock %}
+
+
+

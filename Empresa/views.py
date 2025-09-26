@@ -85,18 +85,27 @@ def singup(request):
                               {"form": UserCreationForm(),
                                "error":"Error, Las contraseñas no coinciden"})
         
-import openai
-openai.api_key = settings.OPENAI_API_KEY
 
-def ai_assistant(request):
+
+from django.shortcuts import render
+
+# Diccionario de preguntas y respuestas
+FAQ = {
+    "¿Cómo creo un nuevo usuario?": "Para crear un nuevo usuario, ve al panel de registro, completa los campos requeridos y guarda los cambios.",
+"¿Cómo agrego un nuevo empleado?": "Para agregar un nuevo empleado, ve al panel de crear datos, completa los campos requeridos y guarda los cambios.",
+"¿En donde veo el nuevo empleado que agregue?": "Para ver el nuevo empleado que agregaste, ve al panel de Datos, ahí encontrarás todos los datos de los empleados y el nuevo empleado que agregaste.",
+
+    # Agrega más preguntas y respuestas aquí
+}
+
+def generar_respuesta(request):
     respuesta = ""
     if request.method == "POST":
         pregunta = request.POST.get("pregunta")
-        if pregunta:
-            completion = openai.ChatCompletion.create(
-                model="gpt-4",
-                messages=[{"role": "user", "content": pregunta}],
-                max_tokens=200
-            )
-            respuesta = completion.choices[0].message.content
+        respuesta = FAQ.get(pregunta, "No tenemos una respuesta para esa pregunta.")
+
     return render(request, "ai_chat.html", {"respuesta": respuesta})
+
+
+
+

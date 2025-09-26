@@ -25,5 +25,5 @@ urlpatterns = [
     path("signout/", views.signout, name="signout"),
     path("Datos/", views.datos_list, name="Datos"),
     path("crear_datos/", views.crear_datos, name="crear_datos"),
-    path("ai_chat/", views.ai_assistant, name="ai_chat"),
+    path("ai_chat/", views.generar_respuesta, name="ai_chat"),
 ]
